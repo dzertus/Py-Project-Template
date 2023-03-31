@@ -1,9 +1,11 @@
-# Helpers-Interface
+# Python Project Template
 
 # Install
-
-On Windows:
-Computer > Properties > Advanced System Settings > Environment Variables :
-If PYTHONPATH variable already exists, add the python folder of the HI tool example:
-C:\Users\[USERNAME]\Documents\Scripts\Helpers-Interface\python
-If the variable does not exist, you just have to create it.
+1 - Open file :
+core/todo_main 
+2 - In this line :
+    Replace YTT_TMPLT by the name of your tool (Should be Capitals)
+3 - In your os create an environment variable :
+    Key = YTT_TMPLT (Yours)
+    Value = Path to the app folder example :
+        C:\Users\youss\Documents\GitHub\Py-Project-Template
