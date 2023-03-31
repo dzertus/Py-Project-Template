@@ -4,58 +4,12 @@
 import os
 import sys
 
-from data import env
-
+from ytt_py_utils.env import envs
 from ytt_py_utils.config.yaml import parser as uc
 from ytt_py_utils.log import logs as ul
 from ytt_py_utils.web import request as ur
 
-
-# Install Environment
-installed = False
-
-
-NAME = 'YTT_TMPLT' #Todo: replace NAME by yours
-ENV = env.Env(NAME)
-
-if env.Env.PATH is not None:
-    if env.Env.PATH not in sys.path:
-        sys.path.insert(0, env.Env.PATH)
-
-    # Config
-    if not os.path.exists(env.Env.DEFAULT_CONF_FILE):
-        ur.download_file(default_config_url, env.Env.DEFAULT_CONF_FILE)
-
-    config_parser = uc.YamlParser(env.Env.DEFAULT_CONF_FILE)
-    config = config_parser.load()
-
-    # Setup main config
-    # app_config = config['app']
-    # parser = path.PathParser()
-
-    # Setup logs config
-    log_config = config['logs']
-    logger_inst = ul.Log(__name__, log_config)
-
-    logger = logger_inst.logger
-    logger.debug('Parsing default_source data')
-
-    installed = True
-
-else:
-    # Ask user to install PATH env variable
-    print('Please install this environment variable : \n'
-          'HINTERFACE as name \n'
-          'Source code python path : '
-          '..Helpers-Interface-initialize_python2/python as value\n'
-          'For more informations on how to install an environment variable '
-          'according to your OS , visit this page : \n'
-          'https://github.com/dzertus/Helpers-Interface/blob/main/README.md#maya-helper-interface\n'
-          )
-    # Shut down process because PATH env variable not found
-    # Todo Open dialog to set
-
-def run():
+def run_application():
     """
     :param scripts:
     :return:
@@ -75,17 +29,39 @@ def run():
     logger.info('Running...')
     sys.exit(app.exec_())
 
-
 def main():
     """
 
     :return:
     """
-    if installed is True:
-        run()
-    else:
-        print('Environment not installed, Shutting down..')
-        sys.exit()
+    # Install Environment
+
+    NAME = 'YTT_TMPLT'  # Todo: replace NAME by yours
+    envs.Env(NAME)
+
+    if envs.Env.PATH not in sys.path:
+        sys.path.insert(0, envs.Env.PATH)
+
+    # Config
+    if not os.path.exists(envs.Env.DEFAULT_CONF_FILE):
+        ur.download_file(default_config_url, envs.Env.DEFAULT_CONF_FILE)
+
+    config_parser = uc.YamlParser(envs.Env.DEFAULT_CONF_FILE)
+    config = config_parser.load()
+
+    # Setup main config
+    # app_config = config['app']
+    # parser = path.PathParser()
+
+    # Setup logs config
+    log_config = config['logs']
+    logger_inst = ul.Log(__name__, log_config)
+
+    logger = logger_inst.logger
+    logger.debug('Parsing default_source data')
+
+    run_application()
+
 
 if __name__ == '__main__':
     main()
