@@ -2,7 +2,7 @@
 """
 View Classes
 """
-from PySide2 import QtWidgets, QtCore
+from PySide2 import QtWidgets
 
 class MainWindow(QtWidgets.QMainWindow):
     def __init__(self):

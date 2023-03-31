@@ -2,7 +2,6 @@
 """
 Models
 """
-import os
 from abc import ABC, abstractmethod
 
 class ModelAbstract(ABC):

@@ -1,4 +1,3 @@
-# Open file
 """
 Handlers
 """
