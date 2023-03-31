@@ -14,9 +14,20 @@ Logger = logging.getLogger('handler_cls')
 
 class DefaultHandler(ABC):
     """
-    Handler
+    Default Handler
     """
     """
     Class
     """
-    pass
+    def __init__(self):
+        print ('Default Handler Init')
+
+class CustomHandler(DefaultHandler):
+    """
+    Custom Handler
+    """
+    """
+    Class
+    """
+    def __init__(self):
+        print ('Custom Handler Init')

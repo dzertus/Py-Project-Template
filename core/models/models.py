@@ -7,7 +7,7 @@ from abc import ABC, abstractmethod
 
 class ModelAbstract(ABC):
     """
-    Model
+    Abstract Model Class
     """
     def __iter__(self):
         """
@@ -34,9 +34,9 @@ class ModelAbstract(ABC):
         """
         raise NotImplementedError
 
-class ElementModel(ModelAbstract):
+class CustomModel(ModelAbstract):
     """
-    ElementModel
+    Element Model Class
     """
     item_type = "element"
 

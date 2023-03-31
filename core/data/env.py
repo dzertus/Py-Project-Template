@@ -4,7 +4,6 @@ Env
 """
 import os
 import logging
-from logging import Logger
 
 Logger = logging.getLogger('env')
 
@@ -23,8 +22,6 @@ class Env(object):
         # Set mendatory settings
         Env.NAME = name
         Env.PATH = os.environ.get(Env.NAME, None)
-        if Env.PATH is None:
-            print('')
 
         # Set optional settings
         if settings:
@@ -50,11 +47,14 @@ class Env(object):
 
 
     def set_optional_settings(self, settings=None):
-        # Nickname
-        Env.NICKNAME = settings['nickname'] or Env.NAME.lower()
-        Env.DEFAULT_LOGS_FILE = self.set_env_var('NICKNAME',
+        """
+
+        :param settings:
+        :return:
+        """
+        Env.NICKNAME = Env.NAME.lower()
+        Env.DEFAULT_LOGS_FILE = self.set_env_var(Env.NAME,
                                                   custom_value=Env.NICKNAME)
-        print('DONE')
 
     def is_path_valid(self, path):
         """
@@ -63,7 +63,7 @@ class Env(object):
         :return:
         """
         valid = True
-        # Critic validation
+        # Critical validation
         if path is None:
             valid = False
             ValueError(f'Invalid path: \n\t{path}')
@@ -85,7 +85,7 @@ class Env(object):
         full_name = '_'.join([prefix, input])
         return full_name
 
-    def set_env_var(self, var_name, custom_value=None):
+    def set_env_var(self, env_name, custom_value=None):
         """
 
         :param var_name:
@@ -94,12 +94,10 @@ class Env(object):
         """
 
         if custom_value is None:
-            print('ENV PATH : ', Env.PATH)
-            print('var name : ', var_name)
-            value = os.path.join(Env.PATH, var_name)
+            value = os.path.join(Env.PATH, env_name)
         else:
             value = custom_value
 
-        var_name = self.add_prefix(var_name)
+        var_name = self.add_prefix(env_name)
         os.environ[var_name] = value
         return value

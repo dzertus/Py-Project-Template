@@ -1,18 +1,20 @@
+#Todo : Replace the todo comments and remove prefix from file name
 # Template file
 ### Default Configuration file ###
 # Environment
 
+
+
 # Settings
 settings:
-  nickname:
-    tblgt
+  nickname: tmplt #Todo replace tmplt by yours
 # Application
-app:
-  extentions:
-    icon_valid_ext: ['.png']
-    module_valide_ext: ['.py']
-  regex:
-    module_file_sanity_name: tblgt_(.*)\..* #Todo replace Nickname
+app: null #Todo : Add applications infos (Valid icons extentions , valid regex for naming conventions .. example below)
+#  extentions:
+#    icon_valid_ext: ['.png']
+#    module_valide_ext: ['.py']
+#  regex:
+#    module_file_sanity_name: tmplt_(.*)\..* #Todo replace tmplt by yours
 
 # Logging
 logs:
@@ -31,7 +33,7 @@ logs:
       class: logging.FileHandler
       level: DEBUG
       formatter: default
-      filename: !TAG ${TBLIGHTING}/default.log
+      filename: !TAG ${TMPLT}/default.log #Todo : Replace TMPLT by yours
   loggers:
     main:
       level: DEBUG

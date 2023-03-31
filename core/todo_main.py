@@ -1,13 +1,12 @@
-# Open file
+# Todo : Replace all the todo comments by your custom ones , remove the prefix
+#  'todo' from the module name
 
-
-import importlib
 import os
 import sys
 
 from data import env
-from ytt_py_utils.config.yaml import parser as uc
 
+from ytt_py_utils.config.yaml import parser as uc
 from ytt_py_utils.log import logs as ul
 from ytt_py_utils.web import request as ur
 
@@ -16,7 +15,7 @@ from ytt_py_utils.web import request as ur
 installed = False
 
 
-NAME = 'TBLIGHTING'
+NAME = 'TMPLT' #Todo: replace NAME by yours
 ENV = env.Env(NAME)
 
 if env.Env.PATH is not None:
@@ -40,10 +39,6 @@ if env.Env.PATH is not None:
     # app_config = config['app']
     # parser = path.PathParser()
 
-    import pprint
-    #pprint.pprint(config)
-    pprint.pprint(os.environ)
-
     # Setup logs config
     log_config = config['logs']
     logger_inst = ul.Log(__name__, log_config)
@@ -66,7 +61,7 @@ else:
     # Shut down process because PATH env variable not found
     # Todo Open dialog to set
 
-def run(scripts=None):
+def run():
     """
     :param scripts:
     :return:
@@ -74,7 +69,7 @@ def run(scripts=None):
     logger.error()
     logger.info('...Init App')
 
-    model = model_cls.ScriptModel()
+    model = model_cls.CustomModel()
 
     # application
     logger.info(f'Running on : {sys.executable}')
