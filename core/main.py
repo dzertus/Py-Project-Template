@@ -5,16 +5,18 @@ import importlib
 import os
 import sys
 
-from data import path, env, config as uc
-from utils import logs as ul
-from utils import request
+from data import env
+from ytt_py_utils.config.yaml import parser as uc
+
+from ytt_py_utils.log import logs as ul
+from ytt_py_utils.web import request as ur
 
 
 # Install Environment
 installed = False
 
 
-NAME = 'HINTERFACE'
+NAME = 'TBLIGHTING'
 ENV = env.Env(NAME)
 
 if env.Env.PATH is not None:
@@ -24,7 +26,7 @@ if env.Env.PATH is not None:
     # Config
     conf_path = os.path.join(env.Env.DEFAULT_CONF_FILE)
     if not os.path.exists(conf_path):
-        request.download_file(default_config_url, env.Env.DEFAULT_CONF_FILE)
+        ur.download_file(default_config_url, env.Env.DEFAULT_CONF_FILE)
 
     config_parser = uc.YamlParser(env.Env.DEFAULT_CONF_FILE)
     config = config_parser.load()
@@ -35,13 +37,9 @@ if env.Env.PATH is not None:
 
 
     # Setup main config
-    app_config = config['app']
-    parser = path.PathParser(app_config)
+    # app_config = config['app']
+    # parser = path.PathParser()
 
-    # Setup env config
-    env_config = config['env']
-    for env_var in env_config:
-        ENV.set_env_var(env_var.value())
     import pprint
     #pprint.pprint(config)
     pprint.pprint(os.environ)
@@ -53,10 +51,6 @@ if env.Env.PATH is not None:
     logger = logger_inst.logger
     logger.debug('Parsing default_source data')
 
-    # Gathering sources
-    logger.info('Gathering default_source locations')
-    sources = parser.get_sources()
-    scripts = []
     installed = True
 
 else:
@@ -90,10 +84,6 @@ def run(scripts=None):
     h = handler_cls.Handler(model)
     h.run()
 
-    for s in scripts:
-        h.add_item(s)
-        logger.debug(f'"{s.name}" script added')
-
     logger.info('Running...')
     sys.exit(app.exec_())
 
@@ -104,20 +94,7 @@ def main():
     :return:
     """
     if installed is True:
-        for src in sources:
-            if os.path.isdir(src):
-                src_data = parser.get_scripts_from_source(src)
-            else:
-                raise OSError(f'Config not found, looking for:\n\t {src}\nDo you want to back up a config file ? ')
-            for script_name in src_data.keys():
-                module_path = os.path.join(src_data[script_name]['dir'], src_data[script_name]['module'])
-                spec = importlib.util.spec_from_file_location(script_name, module_path)
-                module = importlib.util.module_from_spec(spec)
-                spec.loader.exec_module(module)
-                script = module.Script(src, src_data[script_name])
-                scripts.append(script)
-
-        run(scripts)
+        print('Processing')
     else:
         print('Shutting down..')
         sys.exit()

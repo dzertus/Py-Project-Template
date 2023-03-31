@@ -2,9 +2,11 @@
 """
 Env
 """
-import logging
 import os
+import logging
+from logging import Logger
 
+Logger = logging.getLogger('env')
 
 class Env(object):
     CORE = 'core'
@@ -21,6 +23,8 @@ class Env(object):
         # Set mendatory settings
         Env.NAME = name
         Env.PATH = os.environ.get(Env.NAME, None)
+        if Env.PATH is None:
+            print('')
 
         # Set optional settings
         if settings:
@@ -90,6 +94,8 @@ class Env(object):
         """
 
         if custom_value is None:
+            print('ENV PATH : ', Env.PATH)
+            print('var name : ', var_name)
             value = os.path.join(Env.PATH, var_name)
         else:
             value = custom_value

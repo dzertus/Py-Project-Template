@@ -1,4 +1,3 @@
-# Template file
 """
 Text
 """
@@ -47,7 +46,7 @@ class DocTextEdit(TextEditAbstract):
         self.setText(text)
 
 
-class SourceTextEdit(TextEditAbstract):
+class HighlighterTextEdit(TextEditAbstract):
     """
     SourceTextEdit
     """

@@ -1,4 +1,3 @@
-# Template file
 """
 Buttons Classes
 """

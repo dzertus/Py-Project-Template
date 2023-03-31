@@ -1,4 +1,3 @@
-# Template file
 """
 Errors Utils
 """
@@ -8,5 +7,9 @@ class Error(Exception):
 
 
 class ViewNotFoundError(Error):
+    """Raised when the input value is too small"""
+    pass
+
+class MissingEnvironmentVariable(Error):
     """Raised when the input value is too small"""
     pass

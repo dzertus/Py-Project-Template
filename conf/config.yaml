@@ -1,21 +1,18 @@
 # Template file
 ### Default Configuration file ###
 # Environment
-env:
-  sources: EXAMPLES
 
 # Settings
 settings:
   nickname:
-    Nickname #Todo replace Nickname
-
+    tblgt
 # Application
 app:
   extentions:
     icon_valid_ext: ['.png']
     module_valide_ext: ['.py']
   regex:
-    module_file_sanity_name: Nickname_(.*)\..* #Todo replace Nickname
+    module_file_sanity_name: tblgt_(.*)\..* #Todo replace Nickname
 
 # Logging
 logs:
@@ -34,14 +31,17 @@ logs:
       class: logging.FileHandler
       level: DEBUG
       formatter: default
-      filename:
-        - !TAG ${HINTERFACE_LOGS}/default.log
+      filename: !TAG ${TBLIGHTING}/default.log
   loggers:
     main:
       level: DEBUG
       handlers: [ 'console', 'file' ]
       propagate: no
     handler_cls:
+      level: INFO
+      handlers: [ 'console', 'file' ]
+      propagate: no
+    env:
       level: INFO
       handlers: [ 'console', 'file' ]
       propagate: no
