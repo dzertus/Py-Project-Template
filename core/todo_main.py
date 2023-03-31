@@ -15,7 +15,7 @@ from ytt_py_utils.web import request as ur
 installed = False
 
 
-NAME = 'TMPLT' #Todo: replace NAME by yours
+NAME = 'YTT_TMPLT' #Todo: replace NAME by yours
 ENV = env.Env(NAME)
 
 if env.Env.PATH is not None:
@@ -23,17 +23,11 @@ if env.Env.PATH is not None:
         sys.path.insert(0, env.Env.PATH)
 
     # Config
-    conf_path = os.path.join(env.Env.DEFAULT_CONF_FILE)
-    if not os.path.exists(conf_path):
+    if not os.path.exists(env.Env.DEFAULT_CONF_FILE):
         ur.download_file(default_config_url, env.Env.DEFAULT_CONF_FILE)
 
     config_parser = uc.YamlParser(env.Env.DEFAULT_CONF_FILE)
     config = config_parser.load()
-
-    # Setup optional settings
-    settings = config['settings']
-    ENV.set_optional_settings(settings)
-
 
     # Setup main config
     # app_config = config['app']
@@ -66,7 +60,6 @@ def run():
     :param scripts:
     :return:
     """
-    logger.error()
     logger.info('...Init App')
 
     model = model_cls.CustomModel()
@@ -89,9 +82,9 @@ def main():
     :return:
     """
     if installed is True:
-        print('Processing')
+        run()
     else:
-        print('Shutting down..')
+        print('Environment not installed, Shutting down..')
         sys.exit()
 
 if __name__ == '__main__':
