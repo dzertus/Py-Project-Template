@@ -4,26 +4,30 @@
 import os
 import sys
 
+from models import models
+from handlers import handlers
+
 from ytt_py_utils.env import envs
 from ytt_py_utils.config.yaml import parser as uc
 from ytt_py_utils.log import logs as ul
 from ytt_py_utils.web import request as ur
+from ytt_py_utils.ui.Pyside2 import core as uic
 
-def run_application():
+def run_application(logger=None):
     """
     :param scripts:
     :return:
     """
     logger.info('...Init App')
 
-    model = model_cls.CustomModel()
+    model = models.CustomModel()
 
     # application
     logger.info(f'Running on : {sys.executable}')
-    # app = QtWidgets.QApplication(sys.argv)
+    app = uic.get_app()
 
     # handler
-    h = handler_cls.Handler(model)
+    h = handlers.CustomHandler(model)
     h.run()
 
     logger.info('Running...')
@@ -60,7 +64,7 @@ def main():
     logger = logger_inst.logger
     logger.debug('Parsing default_source data')
 
-    run_application()
+    run_application(logger=logger)
 
 
 if __name__ == '__main__':

@@ -7,8 +7,7 @@ from abc import ABC, abstractmethod
 import logging
 from logging import Logger
 
-from ui import view, buttons
-
+from ui import views
 Logger = logging.getLogger('handler_cls')
 
 
@@ -22,6 +21,9 @@ class DefaultHandler(ABC):
     def __init__(self):
         print ('Default Handler Init')
 
+    def run(self):
+        raise NotImplementedError
+
 class CustomHandler(DefaultHandler):
     """
     Custom Handler
@@ -29,5 +31,8 @@ class CustomHandler(DefaultHandler):
     """
     Class
     """
-    def __init__(self):
+    def __init__(self, model=None):
         print ('Custom Handler Init')
+
+    def run(self):
+        print('Running the handler')
